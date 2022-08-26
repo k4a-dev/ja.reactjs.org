@@ -8,11 +8,11 @@
       "path": "",
       "routes": [
         {
-          "title": "Installation",
+          "title": "インストール",
           "path": "/learn/installation",
           "routes": [
             {
-              "title": "Start a New React Project",
+              "title": "Reactプロジェクトを作る",
               "path": "/learn/start-a-new-react-project"
             },
             {
@@ -30,7 +30,7 @@
           ]
         },
         {
-          "title": "Quick Start",
+          "title": "クイックスタート",
           "path": "/learn",
           "routes": [{
             "title": "Thinking in React",
