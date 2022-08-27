@@ -1,18 +1,18 @@
 ---
-title: Thinking in React
+title: Reactを考える
 ---
 
 <Intro>
 
-React can change how you think about the designs you look at and the apps you build. Where once you might have seen a forest, after working with React, you will appreciate the individual trees. React makes it easier to think in design systems and UI states. In this tutorial, we'll guide you through the thought process of building a searchable product data table with React.
+Reactは、あなたが見るデザイン、作るアプリについての考え方を変えることができます。以前は森を見ていたかもしれませんが、Reactで作業した後は個々の木々を認識することができます。Reactは、デザインシステムとUIのstate(状態)で考えることを容易にしてくれます。このチュートリアルでは、Reactで検索可能な商品データテーブルを構築するための思考プロセスを案内します。
 
 </Intro>
 
-## Start with the mockup {/*start-with-the-mockup*/}
+## モックアップから開始する {/*start-with-the-mockup*/}
 
-Imagine that you already have a JSON API and a mockup from a designer.
+すでにJSON APIとデザイナーからのモックアップがあると想像してください。
 
-The JSON API returns some data that looks like this:
+JSON APIは、次のようなデータを返します:
 
 ```json
 [
@@ -25,25 +25,27 @@ The JSON API returns some data that looks like this:
 ]
 ```
 
-The mockup looks like this:
+モックアップは次のように構成されます:
 
 <img src="/images/docs/s_thinking-in-react_ui.png" width="300" style={{margin: '0 auto'}} />
 
-To implement a UI in React, you will usually follow the same five steps.
+ReactでUIを実装するには、通常、同じ5つのステップを踏むことになります。
 
-## Step 1: Break the UI into a component hierarchy {/*step-1-break-the-ui-into-a-component-hierarchy*/}
+## Step 1: UIをコンポーネント階層に分解する {/*step-1-break-the-ui-into-a-component-hierarchy*/}
 
-Start by drawing boxes around every component and subcomponent in the mockup and naming them. If you work with a designer, they may have already named these components in their design tool. Check in with them!
+まず、モックアップのすべてのコンポーネントとサブコンポーネントの周りにボックスを描き、それらに名前を付けます。デザイナーと一緒に仕事をしている場合、すでに彼らのデザインツールでコンポーネントに名前を付けているかもしれません。デザイナーに確認してみてください。
 
-Depending on your background, you can think about splitting up a design into components in different ways:
+あなたの経歴に応じて、デザインをさまざまな方法でコンポーネントに分割することを考えることができます。
 
-* **Programming**--use the same techniques for deciding if you should create a new function or object. One such technique is the [single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle), that is, a component should ideally only do one thing. If it ends up growing, it should be decomposed into smaller subcomponents. 
-* **CSS**--consider what you would make class selectors for. (However, components are a bit less granular.)
-* **Design**--consider how you would organize the design's layers.
+* **プログラミング**--新しい関数やオブジェクトを作成すべきかどうかを決定するための同じテクニックを使用します。そのようなテクニックの1つが[単一責任原則](https://en.wikipedia.org/wiki/Single_responsibility_principle)です。つまり、コンポーネントは理想的には1つのことだけを行うべきであり、もし大きくなってしまったらより小さなサブコンポーネントに分解されるべきです。
+* **CSS**--クラスセレクタを作成するものを考えてみてください(ただし、コンポーネントの粒度はもう少し荒くなります[^1])。
+* **デザイン**--デザインのレイヤーをどのように構成するかを考えてみてください。
 
-If your JSON is well-structured, you'll often find that it naturally maps to the component structure of your UI. That's because UI and data models often have the same information architecture--that is, the same shape. Separate your UI into components, where each component matches one piece of your data model.
+[^1]:原文に"components are a bit less granular"と記されているため「コンポーネントのほうが粒度が低い」が正しいが、「低い」という言葉は細分化のレベルとしてどちらにも捉えられてしまうため「粗い」という訳を使用。
 
-There are five components on this screen:
+JSONがうまく構造化されていれば、UIのコンポーネント構造に自然にマッピングされることが多いでしょう。これは、UIとデータモデルが同じ情報アーキテクチャ、つまり同じ形をしていることが多いからです。UIをコンポーネントに分割し、各コンポーネントがデータモデルの1つのピースに対応するようにします。
+
+この画面には5つのコンポーネントがあります:
 
 <FullWidth>
 
@@ -51,33 +53,33 @@ There are five components on this screen:
 
 <img src="/images/docs/s_thinking-in-react_ui_outline.png" width="500" style={{margin: '0 auto'}} />
 
-1. `FilterableProductTable` (grey) contains the entire app.
-2. `SearchBar` (blue) receives the user input.
-3. `ProductTable` (lavender) displays and filters the list according to the user input.
-4. `ProductCategoryRow` (green) displays a heading for each category.
-5. `ProductRow`	(yellow) displays a row for each product.
+1. `FilterableProductTable` (灰色) は、アプリ全体を包括します。
+2. `SearchBar` (青色)は、 ユーザーからの入力を受け取ります。
+3. `ProductTable` (紫色) は、ユーザーの入力に従ってリストを表示し、フィルタリングします。
+4. `ProductCategoryRow` (緑色)は、 各カテゴリの見出しを表示します。
+5. `ProductRow`	(黄色) は、各製品に対応する行を表示します。
 
 </CodeDiagram>
 
 </FullWidth>
 
-If you look at `ProductTable` (lavender), you'll see that the table header (containing the "Name" and "Price" labels) isn't its own component. This is a matter of preference, and you could go either way. For this example, it is a part of `ProductTable` because it appears inside the `ProductTable`'s list. However, if this header grows to be complex (e.g., if you add sorting), it would make sense to make this its own `ProductTableHeader` component.
+`ProductTable` (紫色) を見ると、テーブルのヘッダー（"Name" と "Price" ラベルを含む）が独立したコンポーネントではないことがわかるでしょう。これは好みの問題で、どちらを選んでもかまいません。この例では、`ProductTable`のリスト内に表示されているため、`ProductTable`の一部となっています。しかし、このヘッダーが複雑になってきた場合（例えば、ソートを追加した場合）、これを独自の `ProductTableHeader` コンポーネントにすることは理にかなっています。
 
-Now that you've identified the components in the mockup, arrange them into a hierarchy. Components that appear within another component in the mockup should appear as a child in the hierarchy:
-
+モックアップのコンポーネントを定めたので、次はそれらを階層構造に並べます。モックアップ内の他のコンポーネントの中にあるコンポーネントは、 階層の中では子として表示されるはずです:
 * `FilterableProductTable`
     * `SearchBar`
     * `ProductTable`
         * `ProductCategoryRow`
         * `ProductRow`
 
-## Step 2: Build a static version in React {/*step-2-build-a-static-version-in-react*/}
+## Step 2: Reactで静的なサイトを構築する {/*step-2-build-a-static-version-in-react*/}
 
-Now that you have your component hierarchy, it's time to implement your app. The most straightforward approach is to build a version that renders the UI from your data model without adding any interactivity... yet! It's often easier to build the static version first and then add interactivity separately. Building a static version requires a lot of typing and no thinking, but adding interactivity requires a lot of thinking and not a lot of typing.
+コンポーネント階層ができたので、次はアプリを実装しましょう。最も簡単な方法は、データモデルからUIをレンダリングするバージョンを作成し、インタラクティブ機能を追加しないことです。静的なバージョンを最初に構築し、その後、インタラクティブ機能を別途追加する方が簡単な場合が多いです。静的なバージョンを構築するには、多くのタイピングが必要ですが、インタラクティブ性を追加するには、多くの思考と多くのタイピングは必要ありません。
 
-To build a static version of your app that renders your data model, you'll want to build [components](/learn/your-first-component) that reuse other components and pass data using [props](/learn/passing-props-to-a-component). Props are a way of passing data from parent to child. (If you're familiar with the concept of [state](/learn/state-a-components-memory), don't use state at all to build this static version. State is reserved only for interactivity, that is, data that changes over time. Since this is a static version of the app, you don't need it.)
 
-You can either build "top down" by starting with building the components higher up in the hierarchy (like `FilterableProductTable`) or "bottom up" by working from components lower down (like `ProductRow`). In simpler examples, it’s usually easier to go top-down, and on larger projects, it’s easier to go bottom-up.
+データモデルをレンダリングする静的バージョンのアプリを構築するには、他のコンポーネントを再利用し、[props(プロパティ)] (/learn/passing-props-to-a-component) を使用してデータを渡す [コンポーネント] (/learn/your-first-component) を構築することになるでしょう。propsとは、親から子へデータを渡す方法です。(もしあなたが[state(状態)](/learn/state-a-components-memory)の概念に精通しているなら、この静的バージョンを構築するためにstateを全く使用しないでください。stateはインタラクティブなもの、つまり時間と共に変化するデータのためにのみ予約されています。これはアプリの静的バージョンなので、必要ないのです)。
+
+「トップダウン」と呼ばれる、階層の上位にあるコンポーネント(`FilterableProductTable`など)から構築する方法と、「ボトムアップ」と呼ばれる、下位のコンポーネント(`ProductRow`など)から作業する方法があります。単純な例では、通常トップダウンの方が簡単ですし、大規模なプロジェクトではボトムアップの方が簡単です。
 
 <Sandpack>
 
@@ -195,83 +197,83 @@ td {
 
 </Sandpack>
 
-(If this code looks intimidating, go through the [Quick Start](/learn/) first!)
+(このコードが怖く見えるなら、まず [クイックスタート](/learn/) を見てください!)
 
-After building your components, you'll have a library of reusable components that render your data model. Because this is a static app, the components will only return JSX. The component at the top of the hierarchy (`FilterableProductTable`) will take your data model as a prop. This is called _one-way data flow_ because the data flows down from the top-level component to the ones at the bottom of the tree.
+コンポーネントを構築すると、データモデルをレンダリングする再利用可能なコンポーネントのライブラリができあがります。これは静的なアプリなので、コンポーネントはJSXを返すだけです。階層の一番上にあるコンポーネント(`FilterableProductTable`)は、データモデルをpropsとして受け取ります。これは、トップレベルのコンポーネントからツリーの一番下にあるものへとデータが流れていくため_one-way data flow_と呼ばれます。
 
 <Gotcha>
 
-At this point, you should not be using any state values. That’s for the next step!
+この時点では、state値を使用する必要はありません。それは次のステップで使用します!
 
 </Gotcha>
 
-## Step 3: Find the minimal but complete representation of UI state {/*step-3-find-the-minimal-but-complete-representation-of-ui-state*/}
+## Step 3: UIのstateを最小かつ完全に表現するものを探す {/*step-3-find-the-minimal-but-complete-representation-of-ui-state*/}
 
-To make the UI interactive, you need to let users change your underlying data model. You will use *state* for this.
+UIをインタラクティブにするためには、ユーザが基礎となるデータモデルを変更できるようにする必要があります。このために*state(状態)*を使用します。
 
-Think of state as the minimal set of changing data that your app needs to remember. The most important principle for structuring state is to keep it [DRY (Don't Repeat Yourself](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)). Figure out the absolute minimal representation of the state your application needs and compute everything else on-demand. For example, if you're building a shopping list, you can store the items as an array in state. If you want to also display the number of items in the list, don't store the number of items as another state value--instead, read the length of your array.
+stateとは、アプリケーションが記憶しておく必要のある、最小限の変更データのセットだと考えてください。stateを構造化するための最も重要な原則は、[DRY（Don't Repeat Yourself）](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)を維持することです。アプリケーションが必要とするstateの絶対的な最小表現を見つけ出し、それ以外のすべてを必要に応じて計算します。例えば、買い物リストを作成する場合、stateにアイテムを配列として格納できます。もし、リストに含まれる商品の数を表示したい場合は、商品の数を別のstate値として格納するのではなく、配列の長さを読み取ります。
 
-Now think of all of the pieces of data in this example application:
+さて、このサンプルアプリケーションのデータの断片をすべて考えてみましょう:
 
-1. The original list of products
-2. The search text the user has entered
-3. The value of the checkbox
-4. The filtered list of products
+1. 元の商品リスト
+2. ユーザーが入力した検索文字列
+3. チェックボックスの値
+4. フィルタリングされた製品リスト
 
-Which of these are state? Identify the ones that are not:
+これらのうち、どれがstateでしょうか？そうでないものを特定してください。
 
-* Does it **remain unchanged** over time? If so, it isn't state.
-* Is it **passed in from a parent** via props? If so, it isn't state.
-* **Can you compute it** based on existing state or props in your component? If so, it *definitely* isn't state!
+* 時間の経過とともに**変化しない**か？もしそうなら、それはstateではありません。
+* 親からprops経由で渡されたものですか？もしそうなら、それはstateではありません。
+* コンポーネント内の既存のstateやpropsに基づいて、それを計算することができますか？もしそうなら、それは *間違いなく* stateではありません！
 
-What's left is probably state.
+残っているのは、おそらくstateです。
 
-Let's go through them one by one again:
+もう一度、1つずつ見ていきましょう:
 
-1. The original list of products is **passed in as props, so it's not state**. 
-2. The search text seems to be state since it changes over time and can't be computed from anything.
-3. The value of the checkbox seems to be state since it changes over time and can't be computed from anything.
-4. The filtered list of products **isn't state because it can be computed** by taking the original list of products and filtering it according to the search text and value of the checkbox.
+1. 元の商品リストはpropsとして渡されたものなので、stateではありません。
+2. 検索テキストは時間とともに変化し、何からも計算できないので、stateであると思われます。
+3. チェックボックスの値は、時間の経過とともに変化し、何からも計算できないので、stateであるように思われます。
+4. フィルタリングされた商品リストは、元の商品リストを取り出し、検索テキストとチェックボックスの値に従ってフィルタリングすることで**計算できるのでstateとは言えません**。
 
-This means only the search text and the value of the checkbox are state! Nicely done!
+つまり、検索テキストとチェックボックスの値だけがstateです! うまく導き出せました!
 
-<DeepDive title="Props vs State">
+<DeepDive title="props vs state">。
 
-There are two types of "model" data in React: props and state. The two are very different:
+Reactの「モデル」データには、propsとstateという2つのタイプがあります。この2つは非常に異なっています。
 
-* [**Props** are like arguments you pass](/learn/passing-props-to-a-component) to a function. They let a parent component pass data to a child component and customize its appearance. For example, a `Form` can pass a `color` prop to a `Button`.
-* [**State** is like a component’s memory.](/learn/state-a-components-memory) It lets a component keep track of some information and change it in response to interactions. For example, a `Button` might keep track of `isHovered` state.
+* [**props**は、関数に渡す引数のようなもの](/learn/passing-props-to-a-component)です。親コンポーネントが子コンポーネントにデータを渡したり、見た目をカスタマイズしたりすることができます。例えば、 `Form` は `color` propsを `Button` に渡すことができます。
+* [**state** はコンポーネントのメモリのようなもの](/learn/state-a-components-memory) です。これは、コンポーネントがいくつかの情報を記録し、インタラクションに応じてそれを変更することを可能にします。例えば、`Button`は `isHovered` stateを記録しているかもしれません。
 
-Props and state are different, but they work together. A parent component will often keep some information in state (so that it can change it), and *pass it down* to child components as their props. It's okay if the difference still feels fuzzy on the first read. It takes a bit of practice for it to really stick!
+propsとstateは異なりますが、一緒に動作します。親コンポーネントはしばしば、ある情報を（変更できるように）stateとして保持し、子コンポーネントにpropsとして*渡す*ことがあります。最初に読んだときに、この違いがまだ曖昧に感じられても大丈夫です。本当に定着させるには、少し練習が必要です。
 
 </DeepDive>
 
-## Step 4: Identify where your state should live {/*step-4-identify-where-your-state-should-live*/}
+## Step 4: stateが存在すべき場所を特定する {/*step-4-identify-where-your-state-should-live*/}
 
-After identifying your app’s minimal state data, you need to identify which component is responsible for changing this state, or *owns* the state. Remember: React uses one-way data flow, passing data down the component hierarchy from parent to child component. It may not be immediately clear which component should own what state. This can be challenging if you’re new to this concept, but you can figure it out by following these steps!
+アプリの最小限のstateデータを特定した後、どのコンポーネントがこのstateの変更に責任を持つか、またはstateを*所有*するかを特定する必要があります。Reactは一方通行のデータフローを使用し、親コンポーネントから子コンポーネントへ、コンポーネント階層を下ってデータを渡します。どのコンポーネントがどのstateを所有すべきかは、すぐにはわからないかもしれません。この概念に慣れていない場合は難しいかもしれませんが、次のステップに従えば解決できます！
 
-For each piece of state in your application:
+アプリケーション内の各stateについて
 
-1. Identify *every* component that renders something based on that state.
-2. Find their closest common parent component--a component above them all in the hierarchy.
-3. Decide where the state should live:
-    1. Often, you can put the state directly into their common parent.
-    2. You can also put the state into some component above their common parent.
-    3. If you can't find a component where it makes sense to own the state, create a new component solely for holding the state and add it somewhere in the hierarchy above the common parent component.
+1. そのstateに基づいて何かをレンダリングする *すべての* コンポーネントを特定する。
+2. それらのコンポーネントの最も近い共通の親コンポーネント（階層構造ですべてのコンポーネントの上にあるコンポーネント）を見つける。
+3. stateをどこに置くかを決定する。
+    1. 多くの場合、stateを共通の親コンポーネントに直接置くことができます。
+    2. stateを共通の親の上にあるコンポーネントに入れることもできます。
+    3. ステートを所有する意味のあるコンポーネントが見つからない場合は、 ステートを保持するためだけの新しいコンポーネントを作成し、 階層のどこかで共通の親コンポーネントの上に追加します。
 
-In the previous step, you found two pieces of state in this application: the search input text, and the value of the checkbox. In this example, they always appear together, so it is easier to think of them as a single piece of state.
+前のステップで、このアプリケーションには、検索入力テキストとチェックボックスの値という2つのstateのピースがあることがわかりました。この例では、これらは常に一緒に表示されるので、1つのstateとして考える方が簡単です。
 
-Now let's run through our strategy for this state:
+では、このstateに対する戦略を実行してみましょう。
 
-1. **Identify components that use state:**
-    * `ProductTable` needs to filter the product list based on that state (search text and checkbox value). 
-    * `SearchBar` needs to display that state (search text and checkbox value).
-1. **Find their common parent:** The first parent component both components share is `FilterableProductTable`.
-2. **Decide where the state lives**: We'll keep the filter text and checked state values in `FilterableProductTable`.
+1. **stateを使用するコンポーネントを特定する:** 
+    * `ProductTable` は、そのstate（検索テキストとチェックボックスの値）に基づいて、製品リストをフィルタリングする必要があります。
+    * `SearchBar` は、そのstate（検索テキストとチェックボックスの値）を表示する必要があります。
+2.  **共通の親コンポーネントを探す:** 両コンポーネントが共有する最初の親コンポーネントは `FilterableProductTable` です。
+3. **stateをどこに置くか決定する** 。フィルタのテキストとチェックされたstateの値は `FilterableProductTable` に保存されます。
 
-So the state values will live in `FilterableProductTable`. 
+そのため、stateの値は `FilterableProductTable` に格納されます。
 
-Add state to the component with the [`useState()` Hook](/apis/usestate). Hooks let you "hook into" a component's [render cycle](/learn/render-and-commit). Add two state variables at the top of `FilterableProductTable` and specify the initial state of your application:
+[`useState()` フック](/apis/usestate) を使用して、コンポーネントにstateを追加します。フックを使うと、コンポーネントの[レンダーサイクル](/learn/render-and-commit)に "接続する (hook into)"することができます。`FilterableProductTable` のトップに2つのstate変数を追加し、アプリケーションの初期stateを指定します:
 
 ```js
 function FilterableProductTable({ products }) {
@@ -293,8 +295,7 @@ Then, pass `filterText` and `inStockOnly` to `ProductTable` and `SearchBar` as p
 </div>
 ```
 
-You can start seeing how your application will behave. Edit the `filterText` initial value from `useState('')` to `useState('fruit')` in the sandbox code below. You'll see both the search input text and the table update:
-
+アプリケーションがどのように動作するかを確認してみましょう。以下のサンドボックスのコードで、`filterText`の初期値を `useState('')` から `useState('fruit')` に編集してください。検索入力のテキストとテーブルの両方が更新されるのがわかります:
 <Sandpack>
 
 ```jsx App.js
@@ -435,7 +436,7 @@ td {
 
 </Sandpack>
 
-In the sandbox above, `ProductTable` and `SearchBar` read the `filterText` and `inStockOnly` props to render the table, the input, and the checkbox. For example, here is how `SearchBar` populates the input value:
+上記のサンドボックスでは、`ProductTable` と `SearchBar` が `filterText` と `inStockOnly` propsを読み込んでテーブルと入力とチェックボックスをレンダリングしています。例えば、`SearchBar` が入力の値をどのように入力するかは以下の通りです:
 
 ```js {1,6}
 function SearchBar({ filterText, inStockOnly }) {
@@ -448,15 +449,15 @@ function SearchBar({ filterText, inStockOnly }) {
 ```
 
 
-Refer to the [Managing State](/learn/managing-state) to dive deeper into how React uses state and how you can organize your app with it.
+Reactがどのようにステートを使用し、それを使ってどのようにアプリを構成するかについて深く掘り下げるには、[Stateの管理](/learn/managing-state)を参照してください。
 
-## Step 5: Add inverse data flow {/*step-5-add-inverse-data-flow*/}
+## Step 5: 逆方向のデータフローを追加する {/*step-5-add-inverse-data-flow*/}
 
-Currently your app renders correctly with props and state flowing down the hierarchy. But to change the state according to user input, you will need to support data flowing the other way: the form components deep in the hierarchy need to update the state in `FilterableProductTable`. 
+現在、あなたのアプリはpropsとstateが階層を下って流れるように正しくレンダリングされています。しかし、ユーザーの入力に応じてstateを変更するには、データの逆流をサポートする必要があります。階層の深いところにあるフォームコンポーネントは、`FilterableProductTable`のstateを更新する必要があります。
 
-React makes this data flow explicit, but it requires a little more typing than two-way data binding. If you try to type or check the box in the example above, you'll see that React ignores your input. This is intentional. By writing `<input value={filterText} />`, you've set the `value` prop of the `input` to always be equal to the `filterText` state passed in from `FilterableProductTable`. Since `filterText` state is never set, the input never changes.
+Reactはこのデータフローを明示的にしますが、双方向のデータバインディングよりも少し多くのタイピングを必要とします。上の例でタイプしたり、ボックスにチェックを入れようとすると、Reactが入力を無視するのがわかると思います。これは意図的なものです。`<input value={filterText} />`と記述することで、`input` の `value` propsが常に `FilterableProductTable` から渡された `filterText` stateと等しくなるように設定されています。`filterText` stateが設定されることがないので、入力も変更されません。
 
-You want to make it so whenever the user changes the form inputs, the state updates to reflect those changes. The state is owned by `FilterableProductTable`, so only it can call `setFilterText` and `setInStockOnly`. To let `SearchBar` update the `FilterableProductTable`'s state, you need to pass these functions down to `SearchBar`:
+ユーザーがフォームの入力を変更するたびに、その変更を反映してstateが更新されるようにしたいと思います。このstateは `FilterableProductTable` が所有しているので、 `setFilterText` と `setInStockOnly` を呼び出すことができます。`SearchBar` に `FilterableProductTable` のstateを更新させるには、これらの関数を `SearchBar` に渡す必要があります。
 
 ```js {2,3,10,11}
 function FilterableProductTable({ products }) {
@@ -472,7 +473,7 @@ function FilterableProductTable({ products }) {
         onInStockOnlyChange={setInStockOnly} />
 ```
 
-Inside the `SearchBar`, you will add the `onChange` event handlers and set the parent state from them:
+`SearchBar` の内部では、`onChange` イベントハンドラを追加して、そこから親のstateを設定することになります。
 
 ```js {5}
 <input 
@@ -632,8 +633,8 @@ td {
 
 </Sandpack>
 
-You can learn all about handling events and updating state in the [Adding Interactivity](/learn/adding-interactivity) section.
+イベントの処理とstateの更新については、[インタラクティブ機能の追加](/learn/adding-interactivity)のセクションですべて学ぶことができます。
 
-## Where to go from here {/*where-to-go-from-here*/}
+## 次に学ぶこと {/*where-to-go-from-here*/}
 
-This was a very brief introduction to how to think about building components and applications with React. You can [start a React project](/learn/installation) right now or [dive deeper on all the syntax](/learn/describing-the-ui) used in this tutorial.
+今回は、Reactでコンポーネントやアプリケーションを構築する際の考え方について、ごく簡単に紹介しました。今すぐ[Reactプロジェクトを開始する](/learn/installation)か、このチュートリアルで使用した[すべての構文について深く掘り下げる](/learn/describing-the-ui)ことができます。

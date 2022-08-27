@@ -12,7 +12,7 @@
           "path": "/learn/installation",
           "routes": [
             {
-              "title": "Reactプロジェクトを作る",
+              "title": "Reactプロジェクトを開始する",
               "path": "/learn/start-a-new-react-project"
             },
             {
@@ -33,7 +33,7 @@
           "title": "クイックスタート",
           "path": "/learn",
           "routes": [{
-            "title": "Thinking in React",
+            "title": "Reactを考える",
             "path": "/learn/thinking-in-react"
           }]
         },
@@ -77,7 +77,7 @@
           ]
         },
         {
-          "title": "Adding Interactivity",
+          "title": "インタラクティブ機能の追加",
           "path": "/learn/adding-interactivity",
           "tags": [],
           "routes": [
@@ -112,7 +112,7 @@
           ]
         },
         {
-          "title": "Managing State",
+          "title": "Stateの管理",
           "path": "/learn/managing-state",
           "tags": [
             "intermediate"
