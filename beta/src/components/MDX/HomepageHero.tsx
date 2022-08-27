@@ -22,7 +22,7 @@ function HomepageHero() {
       </div>
       <section className="my-8 sm:my-10 grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4">
         <div className="flex flex-col justify-center">
-          <YouWillLearnCard title="Learn React" path="/learn">
+          <YouWillLearnCard title="Reactを学ぶ" path="/learn">
             <p>
               Learn how to think in React with step-by-step explanations and
               interactive examples.

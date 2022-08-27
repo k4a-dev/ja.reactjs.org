@@ -71,21 +71,19 @@ export function Footer() {
             </ExternalLink>
             <div className="flex flex-col">
               <FooterLink href="/learn" isHeader={true}>
-                Learn React
+                Reactを学ぶ
               </FooterLink>
-              <FooterLink href="/learn/">Quick Start</FooterLink>
-              <FooterLink href="/learn/installation">Installation</FooterLink>
+              <FooterLink href="/learn/">クイックスタート</FooterLink>
+              <FooterLink href="/learn/installation">インストール</FooterLink>
               <FooterLink href="/learn/describing-the-ui">
-                Describing the UI
+                UIを記述する
               </FooterLink>
               <FooterLink href="/learn/adding-interactivity">
-                Adding Interactivity
+                インタラクティビティの追加
               </FooterLink>
-              <FooterLink href="/learn/managing-state">
-                Managing State
-              </FooterLink>
+              <FooterLink href="/learn/managing-state">Stateの管理</FooterLink>
               <FooterLink href="/learn/escape-hatches">
-                Escape Hatches
+                落とし穴を避ける
               </FooterLink>
             </div>
             <div className="flex flex-col">

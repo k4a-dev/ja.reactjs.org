@@ -38,7 +38,7 @@
           }]
         },
         {
-          "title": "Describing the UI",
+          "title": "UIを記述する",
           "tags": [],
           "path": "/learn/describing-the-ui",
           "routes": [
@@ -63,15 +63,15 @@
               "path": "/learn/passing-props-to-a-component"
             },
             {
-              "title": "Conditional Rendering",
+              "title": "条件付きレンダリング",
               "path": "/learn/conditional-rendering"
             },
             {
-              "title": "Rendering Lists",
+              "title": "リストのレンダリング",
               "path": "/learn/rendering-lists"
             },
             {
-              "title": "Keeping Components Pure",
+              "title": "コンポーネントを純粋に保つ",
               "path": "/learn/keeping-components-pure"
             }
           ]
@@ -82,7 +82,7 @@
           "tags": [],
           "routes": [
             {
-              "title": "Responding to Events",
+              "title": "イベントへの応答",
               "path": "/learn/responding-to-events"
             },
             {
@@ -149,7 +149,7 @@
           ]
         },
         {
-          "title": "Escape Hatches",
+          "title": "落とし穴を避ける",
           "path": "/learn/escape-hatches",
           "tags": [
             "advanced"
