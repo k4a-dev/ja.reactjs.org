@@ -2,4 +2,4 @@
 title: Escape Hatches
 ---
 
-This chapter is incomplete and is still being written!
+この章は未完成で、まだ執筆中です！

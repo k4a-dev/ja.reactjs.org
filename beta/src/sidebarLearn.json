@@ -149,14 +149,14 @@
           ]
         },
         {
-          "title": "落とし穴を避ける",
+          "title": "落とし穴（逃げ道？）を避ける",
           "path": "/learn/escape-hatches",
           "tags": [
             "advanced"
           ],
           "routes": [
             {
-              "title": "Referencing Values with Refs",
+              "title": "Refを使った値の参照",
               "path": "/learn/referencing-values-with-refs"
             },
             {
