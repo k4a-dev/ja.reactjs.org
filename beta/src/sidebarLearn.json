@@ -1,5 +1,5 @@
 {
-  "title": "Learn React",
+  "title": "Reactを学ぶ",
   "heading": true,
   "path": "/learn",
   "routes": [
@@ -33,7 +33,7 @@
           "title": "クイックスタート",
           "path": "/learn",
           "routes": [{
-            "title": "Reactを考える",
+            "title": "Reactの考え方",
             "path": "/learn/thinking-in-react"
           }]
         },
@@ -67,11 +67,11 @@
               "path": "/learn/conditional-rendering"
             },
             {
-              "title": "リストのレンダリング",
+              "title": "Rendering Lists",
               "path": "/learn/rendering-lists"
             },
             {
-              "title": "コンポーネントを純粋に保つ",
+              "title": "Keeping Components Pure",
               "path": "/learn/keeping-components-pure"
             }
           ]
@@ -82,7 +82,7 @@
           "tags": [],
           "routes": [
             {
-              "title": "イベントへの応答",
+              "title": "Responding to Events",
               "path": "/learn/responding-to-events"
             },
             {
@@ -112,7 +112,7 @@
           ]
         },
         {
-          "title": "Stateの管理",
+          "title": "Managing State",
           "path": "/learn/managing-state",
           "tags": [
             "intermediate"

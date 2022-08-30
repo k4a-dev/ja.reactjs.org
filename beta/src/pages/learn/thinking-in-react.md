@@ -1,5 +1,5 @@
 ---
-title: Reactを考える
+title: Reactの考え方
 ---
 
 <Intro>

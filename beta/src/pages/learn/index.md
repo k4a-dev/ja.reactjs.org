@@ -537,4 +537,4 @@ button {
 
 ここまでの学習で、Reactのコードの書き方の基本はわかったと思います!
 
-[Reactを考える](/learn/thinking-in-react)に向かい、実際にReactでUIを構築する感覚を確認してみましょう。
+[Reactの考え方](/learn/thinking-in-react)に向かい、実際にReactでUIを構築する感覚を確認してみましょう。

@@ -24,8 +24,7 @@ function HomepageHero() {
         <div className="flex flex-col justify-center">
           <YouWillLearnCard title="Reactを学ぶ" path="/learn">
             <p>
-              Learn how to think in React with step-by-step explanations and
-              interactive examples.
+              段階的な解説とインタラクティブな例で、Reactの考え方を学びます。
             </p>
           </YouWillLearnCard>
         </div>

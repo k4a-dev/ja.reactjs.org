@@ -83,7 +83,7 @@ export function Footer() {
               </FooterLink>
               <FooterLink href="/learn/managing-state">Stateの管理</FooterLink>
               <FooterLink href="/learn/escape-hatches">
-                落とし穴を避ける
+                Reactからの脱出口
               </FooterLink>
             </div>
             <div className="flex flex-col">
