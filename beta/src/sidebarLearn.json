@@ -149,7 +149,7 @@
           ]
         },
         {
-          "title": "落とし穴（逃げ道？）を避ける",
+          "title": "Reactからの脱出口",
           "path": "/learn/escape-hatches",
           "tags": [
             "advanced"
@@ -168,7 +168,7 @@
               "path": "/learn/synchronizing-with-effects"
             },
             {
-              "title": "You Might Not Need an Effect",
+              "title": "Effectは必要ないかもしれない",
               "path": "/learn/you-might-not-need-an-effect"
             }
           ]
