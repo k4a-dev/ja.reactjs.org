@@ -38,7 +38,7 @@
           }]
         },
         {
-          "title": "UIを記述する",
+          "title": "UIの記述",
           "tags": [],
           "path": "/learn/describing-the-ui",
           "routes": [
@@ -164,7 +164,7 @@
               "path": "/learn/manipulating-the-dom-with-refs"
             },
             {
-              "title": "Synchronizing with Effects",
+              "title": "Effectによる同期",
               "path": "/learn/synchronizing-with-effects"
             },
             {
