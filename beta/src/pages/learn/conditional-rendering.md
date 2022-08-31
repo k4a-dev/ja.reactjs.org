@@ -4,22 +4,21 @@ title: Conditional Rendering
 
 <Intro>
 
-コンポーネントでは、異なる条件によって異なるものを表示する必要が出てきます。Reactでは、`if`文、`&&`、`? :`演算子などのJavaScript構文を使ってJSXを条件付きでレンダリングすることができます。
-
+コンポーネントでは、異なる条件によって異なるものを表示する必要が出てきます。React では、`if` 文、`&&`、`? :` 演算子などの JavaScript 構文を使って JSX を条件付きでレンダリングすることができます。
 
 </Intro>
 
 <YouWillLearn>
 
-* 条件によって異なるJSXを返す方法
-* JSXの一部を条件付きで含めたり除外する方法
-* Reactの一般的な条件構文のショートカット
+* 条件によって異なる JSX を返す方法
+* JSX の一部を条件付きで含めたり除外する方法
+* React の一般的な条件構文のショートカット
 
 </YouWillLearn>
 
-## 条件付きでJSXを返す {/*conditionally-returning-jsx*/}
+## 条件付きで JSX を返す {/*conditionally-returning-jsx*/}
 
-例えば、`PackingList`コンポーネントがいくつかの`Item`をレンダリングしているとします：
+例えば、`PackingList` コンポーネントがいくつかの `Item` をレンダリングしているとします：
 
 <Sandpack>
 
@@ -53,9 +52,9 @@ export default function PackingList() {
 
 </Sandpack>
 
-`Item` コンポーネントの中には、 `isPacked` プロパティが `false` ではなく `true` に設定されているものがあることに注意してください。パックされたアイテムにチェックマーク(✔)を付けたい場合、`isPacked={true}`を指定します。
+`Item` コンポーネントの中には、 `isPacked` props が `false` ではなく `true` に設定されているものがあることに注意してください。パックされたアイテムにチェックマーク(✔)を付けたい場合、`isPacked={true}` を指定します。
 
-これは以下のような[`if`/`else`文](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else)として書くことができます。
+これは以下のような [`if`/`else` 文](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else)として書くことができます。
 
 ```js
 if (isPacked) {
@@ -64,7 +63,7 @@ if (isPacked) {
 return <li className="item">{name}</li>;
 ```
 
-`isPacked` プロパティが `true` の場合、このコードは **別のJSXツリー** を返します。この変更により、いくつかの項目は最後にチェックマークが付くようになりました：
+`isPacked` props が `true` の場合、このコードは **別の JSX ツリー** を返します。この変更により、いくつかの項目は最後にチェックマークが付くようになりました：
 
 <Sandpack>
 
@@ -101,13 +100,13 @@ export default function PackingList() {
 
 </Sandpack>
 
-どちらの場合でも返されるものを編集して、結果がどう変わるか見てみましょう!
+両方のケースで返されるものを編集して、結果がどう変わるか見てみましょう!
 
-JavaScript の `if` と `return` 文で、分岐したロジックをどのように作成しているかに注目してください。Reactでは、制御フロー（条件のようなもの）はJavaScriptで処理されます。
+JavaScript の `if` と `return` 文で、分岐したロジックをどのように作成しているかに注目してください。React では、制御フロー（条件）は JavaScript で処理されます。
 
-### `null`を使用して条件によって何も返さない{/*conditionally-returning-nothing-with-null*/}。 {/*nullを使用して条件によって何も返さないconditionally-returning-nothing-with-null*/}
+### `null` を使い、条件付きで何も返さない {/*conditionally-returning-nothing-with-null*/}
 
-状況によっては、何もレンダリングしたくないことがあります。例えば、パックされたアイテムを全く表示したくないとします。コンポーネントは何かを返さなければなりません。この場合、`null`を返すことができます：
+状況によっては、何もレンダリングしたくないことがあります。例えば、パックされたアイテムを全く表示したくないとします。コンポーネントは何かを返さなければなりません。この場合、`null` を返すことができます：
 
 ```js
 if (isPacked) {
@@ -116,7 +115,7 @@ if (isPacked) {
 return <li className="item">{name}</li>;
 ```
 
-`isPacked` が true の場合、コンポーネントは何も返さず、 `null` を返します。そうでない場合は、レンダリングするためのJSXを返します。
+`isPacked` が true の場合、コンポーネントは何も返さず、 `null` を返します。そうでない場合は、レンダリングするための JSX を返します。
 
 <Sandpack>
 
@@ -153,12 +152,11 @@ export default function PackingList() {
 
 </Sandpack>
 
-実際には、コンポーネントから `null` を返すことは一般的ではありません。それよりも、親コンポーネントのJSXに条件付きでコンポーネントを含めたり除外したりすることが多いでしょう。ここでは、その方法を説明します。
+実際には、コンポーネントから `null` を返すことは一般的ではありません。それよりも、親コンポーネントの JSX に条件付きでコンポーネントを含めたり除外したりすることが多いでしょう。これからその方法を説明します。
 
-## JSXを条件付きで含める {/*conditionally-including-jsx*/}
+## JSX を条件付きで含める {/*conditionally-including-jsx*/}
 
-
-前の例では、コンポーネントから返されるJSXツリーを制御していました。レンダリング出力に重複があることにすでにお気づきかもしれません。
+前の例では、コンポーネントから返される JSX ツリーを制御していました。レンダリング出力に重複があることにすでにお気づきかもしれません。
 
 ```js
 <li className="item">{name} ✔</li>
@@ -179,11 +177,11 @@ if (isPacked) {
 return <li className="item">{name}</li>;
 ```
 
-この重複は有害ではありませんが、コードの保守を困難にする可能性があります。もし、 `className` を変更したい場合はどうすればよいでしょうか？その場合、コードの2箇所でそれを行わなければなりません。このような場合、条件付きで小さなJSXを含めることで、コードをより[DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)にすることができます。
+この重複は有害ではありませんが、コードの保守を困難にする可能性があります。もし、 `className` を変更したい場合はどうすればよいでしょうか？コードの 2 箇所で変更を行わなければなりません。このような場合、条件付きで小さな JSX を含めることで、コードをより [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) にすることができます。
 
-### 条件(三項)演算子 (`? :`) {/*conditional-ternary-operator--*/}
+### 条件（三項）演算子 （`? :`） {/*conditional-ternary-operator--*/}
 
-JavaScript には条件式を書くためのコンパクトな構文があります。[条件演算子](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) または "三項演算子" です。
+JavaScript には条件式を書くためのコンパクトな構文があります。[条件演算子](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) または 「三項演算子」 です。
 
 以下の書き方の代わりに：
 
@@ -204,15 +202,15 @@ return (
 );
 ```
 
-この式は *"もし `isPacked`が`true`なら,  (`?`) は `name + ' ✔'`をレンダリングし, そうでなければ (`:`) は `name`. をレンダリングする"*) と読むことが出来ます。
+この式は *「もし `isPacked`が`true`なら、 (`?`) は `name + ' ✔'`を描画し、そうでなければ (`:`) は `name` を描画する」* と読むことができます。
 
-<DeepDive title="Are these two examples fully equivalent?">
+<DeepDive title="この2つの例は完全に等価なのか？">
 
-もしあなたがオブジェクト指向プログラミングの経験を持っているなら、上の二つの例は微妙に違うと思うかもしれません。なぜなら、どちらかが `<li>` の二つの異なる「インスタンス」を作成するかもしれないからです。しかし、JSX要素は内部状態を保持せず、実際のDOMノードでもないため、「インスタンス」ではありません。JSX要素はあくまで設計図のような軽量の記述なのです。ですから、この2つの例は実際には完全に等価です。[Preserving and Resetting State](/learn/preserving-and-resetting-state) は、この仕組みについて詳しく説明しています。
+もしあなたがオブジェクト指向プログラミングの経験を持っているなら、上の二つの例は微妙に違うと思うかもしれません。なぜなら、どちらかが `<li>` の二つの異なる「インスタンス」を作成するかもしれないからです。しかし、JSX 要素は内部状態を保持せず、実際の DOM ノードでもないため、「インスタンス」ではありません。JSX 要素はあくまで設計図のような軽量の記述なのです。ですから、この 2 つの例は実際には完全に等価です。[Preserving and Resetting State](/learn/preserving-and-resetting-state)  は、この仕組みについて詳しく説明しています。
 
 </DeepDive>
 
-さて、完成した項目のテキストを、`<del>` のように別のHTMLタグで囲んで打ち消すとします。さらに改行や括弧を追加して、それぞれのケースでより多くのJSXをネストしやすくすることができます：
+次は、完成した項目のテキストを、`<del>` のように別の HTML タグで囲んで打ち消してみます。さらに改行や括弧を追加して、それぞれのケースでより多くの JSX をネストしやすくすることができます：
 
 <Sandpack>
 
@@ -256,11 +254,11 @@ export default function PackingList() {
 
 </Sandpack>
 
-このスタイルは単純な条件には有効ですが、適度に使ってください。ネストされた条件マークアップが多すぎてコンポーネントがごちゃごちゃになる場合は、子コンポーネントを抽出してすっきりさせることを検討してください。Reactでは、マークアップはコードの一部なので、変数や関数のようなツールを使って複雑な式を整理することができます。
+このスタイルは単純な条件には有効ですが、適度に使ってください。ネストされた条件マークアップが多すぎてコンポーネントがごちゃごちゃになる場合は、子コンポーネントを抽出してすっきりさせることを検討してください。React では、マークアップはコードの一部なので、変数や関数のようなツールを使って複雑な式を整理することができます。
 
 ### 論理 AND 演算子 (`&&`) {/*logical-and-operator-*/}
 
-もうひとつよく見かけるショートカットに [JavaScriptの論理AND演算子(`&&`)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#:~:text=The%20logical%20AND%20(%20%26%26%20)%20operator,it%20returns%20a%20Boolean%20value.)があります. Reactコンポーネントの内部では、ある条件がtrueのときにJSXをレンダリングし、そうでないときは何もレンダリングしない、ということがよく出てきます：
+もうひとつよく見かけるショートカットに [JavaScript の論理 AND 演算子(`&&`)](<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#:~:text=The%20logical%20AND%20(%20%26%26%20)%20operator,it%20returns%20a%20Boolean%20value.>) があります. React コンポーネントの内部では、ある条件が true のときに JSX をレンダリングし、そうでないときは何もレンダリングしない、ということがよく出てきます：
 
 ```js
 return (
@@ -270,9 +268,9 @@ return (
 );
 ```
 
-これは *"if `isPacked`, then (`&&`) render the checkmark, otherwise, render nothing "*と読むことができます。
+これは *「もし`isPacked` があれば、(`&&`) はチェックマークを描画し、そうでなければ、何も描画しない 」*と読むことができます。
 
-実際にやってみると、こんな感じです：
+実際に以下で試してみましょう：
 
 <Sandpack>
 
@@ -310,12 +308,11 @@ export default function PackingList() {
 
 </Sandpack>
 
-[JavaScript && 式](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND)は、左辺（条件）が `true` なら右辺（この場合、チェックマーク）の値を返す。しかし、条件が `false` であれば、式全体が `false` になります。React は `false` を `null` や `undefined` と同じように JSX ツリーの「穴」とみなし、その場所には何もレンダリングしない。
-
+[JavaScript && 式](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND)は、左辺（条件）が `true` なら右辺（この場合、チェックマーク）の値を返す。しかし、条件が `false` であれば、式全体が `false` になります。React は `false` を `null` や `undefined` と同じように JSX ツリーの「穴」とみなし、その場所には何もレンダリングしません。
 
 <Gotcha>
 
-**`&&`. の左側に数字を書かないでください。**
+**`&&` の左側に数字を書かないでください。**
 
 この条件を満たすために、JavaScript は左辺を自動的にブーリアンに変換します。しかし、左辺が `0` であれば、式全体がその値 (`0`) を取得し、React は何もしないのではなく、喜んで `0` をレンダリングします。
 
@@ -325,15 +322,15 @@ export default function PackingList() {
 
 </Gotcha>
 
-### 条件付きでJSXを変数に代入する {/*conditionally-assigning-jsx-to-a-variable*/}
+### 条件付きで JSX を変数に代入する {/*conditionally-assigning-jsx-to-a-variable*/}
 
-ショートカットがプレーンなコードを書くのに邪魔になったら、`if`文と変数を使ってみてください。let`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) で定義された変数は再代入が可能なので、まずは表示したいデフォルトの内容、名前を用意しましょう。
+ショートカットがプレーンなコードを書くのに邪魔になったら、`if` 文と変数を使ってみてください。[`let`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) で定義された変数は再代入が可能なので、まずは表示したいデフォルトの内容、名前を用意しましょう。
 
 ```js
 let itemContent = name;
 ```
 
-isPacked` が `true` であれば、 `itemContent` に JSX 式を再割り当てするために `if` ステートメントを使用します
+`if` 文を使用して、`isPacked` が `true` であれば、`itemContent` に JSX 式を再割り当てします。
 
 ```js
 if (isPacked) {
@@ -341,7 +338,7 @@ if (isPacked) {
 }
 ```
 
-[Curly braces open the "window into JavaScript".](/learn/javascript-in-jsx-with-curly-braces#using-curly-braces-a-window-into-the-javascript-world) 中括弧の付いた変数を、返されたJSXツリーに埋め込み、前に計算した式をJSX内部に入れ子にします。
+[波括弧は JavaScript への窓口を開けます。](/learn/javascript-in-jsx-with-curly-braces#using-curly-braces-a-window-into-the-javascript-world) 波括弧の付いた変数を返却する JSX ツリーに埋め込み、前に計算した式を JSX 内部に入れ子にします。
 
 ```js
 <li className="item">
@@ -391,7 +388,7 @@ export default function PackingList() {
 
 </Sandpack>
 
-前回同様、テキストだけでなく、任意のJSXに対しても有効です：
+前回同様、テキストだけでなく、任意の JSX に対しても有効です：
 
 <Sandpack>
 
@@ -437,16 +434,16 @@ export default function PackingList() {
 
 </Sandpack>
 
-JavaScriptに慣れていないと、この多様なスタイルに最初は圧倒されるかもしれません。しかし、これらを学ぶことは、Reactコンポーネントだけでなく、あらゆるJavaScriptのコードを読んだり書いたりするのに役立ちます! まずは好きなものを選び、他のものがどう動くのか忘れたら、またこのリファレンスを参照してください。
+JavaScript に慣れていないと、この多様なスタイルに最初は圧倒されるかもしれません。しかし、これらを学ぶことは、React コンポーネントだけでなく、あらゆる JavaScript のコードを読んだり書いたりするのに役立ちます! まずは好きな記述方法を選び、他の方法がどう動くのか忘れたらまたこのリファレンスを参照してください。
 
 <Recap>
 
-* Reactでは、JavaScriptで分岐ロジックを制御します。
-* ReactではJavaScriptで分岐ロジックを制御することができ、`if`ステートメントで条件付きでJSX式を返すことができます。
-* 中括弧を使えば、あるJSXを条件付きで変数に保存し、それを他のJSXの中に入れることができます。
-* JSXでは, `{cond ? <A /> : <B />}` は *"if `cond`, render `<A />`, otherwise `<B />`"*を意味します。
-* JSXでは、`{cond && <A />}` は *"if `cond`, render `<A />`, otherwise nothing "*を意味します。
-* これらのショートカットは一般的なものですが、プレーンな `if` が好きな人は使う必要はありません。
+- React では、JavaScript で分岐ロジックを制御します。
+- `if`文を使って条件付きで JSX 式を返すことができます。
+- 波括弧を使えば、ある JSX を条件付きで変数に保存し、それを他の JSX の中に入れることができます。
+- JSX では, `{cond ? <A /> : <B />}` は *「もし `cond` が真なら、 `<A />`を描画し、そうでなければ `<B />` を描画する」*を意味します。
+- JSX では、`{cond && <A />}` は *「もし `cond` が真なら、`<A />` を描画し、そうでなければ何もしない」*を意味します。
+- これらのショートカットは一般的なものですが、プレーンな `if` が好きな人は使う必要はありません。
 
 </Recap>
 
@@ -456,7 +453,7 @@ JavaScriptに慣れていないと、この多様なスタイルに最初は圧�
 
 ### 未完成の項目には`? :`のアイコンを表示する {/*show-an-icon-for-incomplete-items-with--*/}
 
-条件演算子 (`cond ? a : b`) を使って、 `isPacked` が `true` でない場合は ❌ をレンダリングすることができます。
+条件演算子 (`cond ? a : b`) を使って、 `isPacked` が `true` でない場合は ❌ を描画しましょう。
 
 <Sandpack>
 
@@ -536,13 +533,13 @@ export default function PackingList() {
 
 ### 項目の重要度を`&&`で表示する {/*show-the-item-importance-with-*/}
 
-この例では、それぞれの `Item` が数値の `importance` プロパティを受け取ります。重要度が0でないアイテムに対してのみ、 `&&` 演算子を使用して "_(Importance: X)_" を斜体で表示します。アイテムリストは次のようなものになるはずです。
+この例では、それぞれの `Item` が数値の `importance` props を受け取ります。重要度が 0 でないアイテムに対してのみ、 `&&` 演算子を使用して 「_(Importance: X)_」 を斜体で表示します。アイテムリストは次のようなものになるはずです。
 
-* 宇宙服 _(重要度:9)_」と表示されます。
-* 金箔入りヘルメット
-* タムの写真 _(重要度：6)_。
+* Space suit _(Importance: 9)_
+* Helmet with a golden leaf
+* Photo of Tam _(Importance: 6)_
 
-2つのラベルの間にスペースを入れるのを忘れないでください。
+2 つのラベルの間にスペースを入れるのを忘れないでください。
 
 <Sandpack>
 
@@ -624,15 +621,15 @@ export default function PackingList() {
 
 </Sandpack>
 
-Note that you must write `importance > 0 && ...` rather than `importance && ...` so that if the `importance` is `0`, `0` isn't rendered as the result!
+`importance && ...`ではなく、`importance > 0 && ...` と書かなければならないことに注意してください。前者の場合、`importance` が `0` の場合正しく描画されません。
 
-In this solution, two separate conditions are used to insert a space between then name and the importance label. Alternatively, you could use a fragment with a leading space: `importance > 0 && <> <i>...</i></>` or add a space immediately inside the `<i>`:  `importance > 0 && <i> ...</i>`.
+この回答では、条件を2つに分割して、`name`と`importance`ラベルの間にスペースを入れるために使用しています。代わりに、 `importance > 0 && <> <i>...</i></>` の様にフラグメントを使用して先頭にスペースを入れたり、`<i>`:  `importance > 0 && <i> ...</i>` の様にスペースを直接いれることもできます。
 
 </Solution>
 
 ### 一連の `? :` を `if` と変数にリファクタリングする。 {/*refactor-a-series-of---to-if-and-variables*/}
 
-この `Drink` コンポーネントは、一連の `? :` コンディションを使用して、 `name` プロパティが `"tea"` か `"coffee"` かによって、異なる情報を表示します。問題は、それぞれの飲み物に関する情報が複数のコンディションにまたがっていることです。このコードをリファクタリングして、3つの `? :` 条件の代わりに、1つの `if` 文を使うようにします。
+この `Drink` コンポーネントは、一連の `? :` コンディションを使用して、 `name` props が `"tea"` か `"coffee"` かによって、異なる情報を表示します。問題は、それぞれの飲み物に関する情報が複数の条件にまたがっていることです。このコードをリファクタリングして、3 つの `? :` 条件の代わりに、1 つの `if` 文を使うようにしましょう。
 
 <Sandpack>
 
@@ -665,11 +662,11 @@ export default function DrinkList() {
 
 </Sandpack>
 
-一旦、`if`を使用するようにコードをリファクタリングした後、さらに簡略化するアイデアはありますか？
+`if`を使用するようにコードをリファクタリングした後、さらに簡略化するアイデアはありますか？
 
 <Solution>
 
-その方法は複数ありますが、ここでは一つの出発点をご紹介します：
+方法は複数ありますが、ここでは一つの出発点を紹介します：
 
 <Sandpack>
 

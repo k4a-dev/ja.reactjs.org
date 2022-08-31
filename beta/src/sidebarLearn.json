@@ -33,12 +33,12 @@
           "title": "クイックスタート",
           "path": "/learn",
           "routes": [{
-            "title": "Reactの考え方",
+            "title": "React の考え方",
             "path": "/learn/thinking-in-react"
           }]
         },
         {
-          "title": "UIの記述",
+          "title": "UI の記述",
           "tags": [],
           "path": "/learn/describing-the-ui",
           "routes": [
@@ -149,26 +149,26 @@
           ]
         },
         {
-          "title": "Reactからの脱出口",
+          "title": "React からの避難ハッチ",
           "path": "/learn/escape-hatches",
           "tags": [
             "advanced"
           ],
           "routes": [
             {
-              "title": "Refを使った値の参照",
+              "title": "Ref を使った値の参照",
               "path": "/learn/referencing-values-with-refs"
             },
             {
-              "title": "Refを使ったDOMの操作",
+              "title": "Ref を使った DOM の操作",
               "path": "/learn/manipulating-the-dom-with-refs"
             },
             {
-              "title": "Effectによる同期",
+              "title": "Effect による同期",
               "path": "/learn/synchronizing-with-effects"
             },
             {
-              "title": "Effectは必要ないかもしれない",
+              "title": "Effect は必要ないかもしれない",
               "path": "/learn/you-might-not-need-an-effect"
             }
           ]

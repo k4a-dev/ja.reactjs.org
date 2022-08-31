@@ -159,7 +159,7 @@ export function Profile() {
 }
 ```
 
-そして、`Gallery.js` の `Profile` を `App.js` に名前付きで**インポート**します（中括弧を使う）：
+そして、`Gallery.js` の `Profile` を `App.js` に名前付きで**インポート**します（波括弧を使う）：
 
 ```js
 import { Profile } from './Gallery.js';

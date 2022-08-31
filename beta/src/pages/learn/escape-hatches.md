@@ -1,5 +1,5 @@
 ---
-title: Escape Hatches
+title: Reactからの避難ハッチ
 ---
 
 この章は未完成で、まだ執筆中です！
